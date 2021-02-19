@@ -445,6 +445,7 @@ pub async fn run_get_method(conf: Config, addr: &str, method: &str, params: Opti
             function_name: method.to_owned(),
             input: params,
             execution_options: None,
+            tuple_list_as_array: None,
         },
     ).await
     .map_err(|e| format!("run failed: {}", e.to_string()))?
