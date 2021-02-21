@@ -62,7 +62,7 @@ impl Config {
     pub fn new() -> Self {
         Config {
             url: default_url(),
-            endpoints: None,
+            endpoints: [].to_vec(),
             wc: default_wc(),
             addr: None,
             wallet: None,
