@@ -41,6 +41,7 @@ fn default_false() -> bool {
 pub struct Config {
     #[serde(default = "default_url")]
     pub url: String,
+    pub endpoints: Vec<String>,
     #[serde(default = "default_wc")]
     pub wc: i32,
     pub addr: Option<String>,
@@ -61,6 +62,7 @@ impl Config {
     pub fn new() -> Self {
         Config {
             url: default_url(),
+            endpoints: [].to_vec(),
             wc: default_wc(),
             addr: None,
             wallet: None,
@@ -123,6 +125,7 @@ pub fn clear_config(
     if (url || addr || wallet || abi || keys || retries || timeout || wc || depool_fee) == false {
         conf = Config {
             url: default_url(),
+            endpoints: [].to_vec(),
             wc: default_wc(),
             addr: None,
             wallet: None,

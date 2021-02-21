@@ -99,6 +99,7 @@ pub fn create_client(conf: &Config) -> Result<TonClient, String> {
         },
         network: ton_client::net::NetworkConfig {
             server_address: Some(conf.url.to_owned()),
+            endpoints: Some(conf.endpoints.to_owned().to_vec()),
             network_retries_count: 3,
             message_retries_count: conf.retries as i8,
             message_processing_timeout: 30000,
@@ -115,8 +116,11 @@ pub fn create_client(conf: &Config) -> Result<TonClient, String> {
 }
 
 pub fn create_client_verbose(conf: &Config) -> Result<TonClient, String> {
-    println!("Connecting to {}", conf.url);
-
+    if conf.endpoints.iter().any(|x| x == x) {
+        println!("Connecting to {:#?}", conf.endpoints);
+    } else {
+        println!("Connecting to {}", conf.url);
+    }
     let level = if std::env::var("RUST_LOG")
         .unwrap_or_default()
         .eq_ignore_ascii_case("debug")
